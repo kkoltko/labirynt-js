@@ -1,4 +1,15 @@
+//import krypta1 from "a.json";
+//a.primaryMain
+//K
 
+//krypta.
+
+//Dane.
+let lv = new krypta.Level(0);
+lv.addRoom(new krypta.Room(11,"LP",1));
+krypta.addLevel(lv)
+
+//import * from "krypta.json";
 /*
 function displayRoom (room: Room) {
     console.log(myNumber)

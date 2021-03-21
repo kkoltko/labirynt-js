@@ -8,12 +8,8 @@ enum Door {
     //% block="Bottom"
     Bottom
 }
-declare module namespace {
-    export interface Room {
-        no: number;
-        doors: string;
-        score: number;
-    }
+/*
+declare module Dane{
     export interface Level {
         roomStart: string;
         roomEnd: string;
@@ -23,12 +19,19 @@ declare module namespace {
         name: string;
         levels: Level[];
     }
+    export interface Room {
+        no: number;
+        doors: string;
+        score: number;
+    }   
 }
+*/
 /**
  * Krypta
  */
 //% weight=100 color=#0fbc11 icon=""
-namespace krypta1 {
+namespace krypta {
+    let _name: string = "";
     let _currentLevel: Level = null;
     let _currentRoom: Room = null;
     let _levels: Level[] = [];
@@ -51,7 +54,7 @@ namespace krypta1 {
         return _currentRoom;
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    class Level{
+    export class Level{
         id: number;
         rooms: Room[];
         constructor(id: number) {
@@ -66,7 +69,7 @@ namespace krypta1 {
         }
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    class Room{
+    export class Room{
         no: number;
         doors: string;
         score: number;
