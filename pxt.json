@@ -4,11 +4,14 @@
     "dependencies": {
         "core": "*",
         "radio": "*",
-        "microphone": "*"
+        "microphone": "*",
+        "snipe": "github:kkoltko/snipe#master"
     },
     "files": [
         "main.ts",
-        "README.md"
+        "README.md",
+        "krypta.ts",
+        "krypta.json"
     ],
     "testFiles": [
         "test.ts"

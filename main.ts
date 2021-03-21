@@ -1,24 +1,5 @@
-class Room{
-    rno: number;
-    doors: string;
-    score: number;
-    constructor(rno: number,doors: string, score: number) {
-        this.rno = rno;
-        this.doors = doors;
-        this.score = score;
-    }
-    hasDoor(d:string) {
-        return this.doors.indexOf(d) > -1;
-    }
-    toString() {
-        return "rno:" + this.rno + ", doors:" + this.doors + ", score" + this.score;
-    }
-}
-function roomInfo (roomNo: number) {
-	return myRooms.find(function (value: Room, index: number) {
-        return value.rno==roomNo
-    })
-}
+
+/*
 function displayRoom (room: Room) {
     console.log(myNumber)
     console.log(room)
@@ -48,6 +29,7 @@ function displayRoom (room: Room) {
         }
     }
 }
+
 input.onButtonPressed(Button.A, function () {
     displayRoom(roomInfo(myNumber))
     myNumber++
@@ -75,3 +57,4 @@ myRooms.push(new Room(14,'LG',1))
 myRooms.push(new Room(15,'G',5))
 myRooms.push(new Room(21,'DP',1))
 images.iconImage(IconNames.Happy).showImage(0)
+*/
