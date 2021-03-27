@@ -1,17 +1,5 @@
-console.log("+++++++++START++++++++++++++++++++++++")
-console.log(">>> Load data")
-
-//Dane.
-console.log(">>> Init")
-//dungeon.init();
-console.log("Aktualny level: " + dungeon.currentLevel())
-console.log("Aktualny room: " + dungeon.currentRoom())
-
-//import * from "krypta.json";
-/*
-function displayRoom (room: Room) {
-    console.log(myNumber)
-    console.log(room)
+function displayRoom (room: dungeon.Room) {
+    console.log(">>> displayRoom" + room)
     if(!room){
         console.log("Heart")
         images.iconImage(IconNames.No).showImage(0)
@@ -40,30 +28,14 @@ function displayRoom (room: Room) {
 }
 
 input.onButtonPressed(Button.A, function () {
-    displayRoom(roomInfo(myNumber))
-    myNumber++
-    if(myNumber>21){
-        myNumber=10
-    }
+    
 })
 input.onButtonPressed(Button.B, function () {
-    displayRoom(roomInfo(myNumber))
-    myNumber--
-    if(myNumber<10){
-        myNumber=10
-    }
+    
 })
-let myString = "Oskar"
-let myNumber = 10
-let myListStr = ["a", "b", "c"]
-let myListNo = [1, 2, 3]
-let myBoolean = true
-let myRooms: Room[] = []
-myRooms.push(new Room(11,'GP',2))
-myRooms.push(new Room(12,'LP',1))
-myRooms.push(new Room(13,'LP',1))
-myRooms.push(new Room(14,'LG',1))
-myRooms.push(new Room(15,'G',5))
-myRooms.push(new Room(21,'DP',1))
-images.iconImage(IconNames.Happy).showImage(0)
-*/
+console.log("+++++++++START++++++++++++++++++++++++")
+console.log(">>> Init")
+dungeon.init()
+console.log("Aktualny level: " + dungeon.currentLevel())
+console.log("Aktualny room: " + dungeon.currentRoom())
+displayRoom(dungeon.currentRoom())

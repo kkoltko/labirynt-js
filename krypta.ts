@@ -3,6 +3,7 @@
  */
 //% weight=100 color=#34a1eb icon="\uf279" block="Dungeon"
 namespace dungeon {
+    let _krypta: Krypta = null;
     let _currentLevel: Level = null;
     let _currentRoom: Room = null;
     /**
@@ -20,12 +21,12 @@ namespace dungeon {
         return _currentRoom;
     }
     /**
-     * Moja Krypta
+     * Incjacja mojej Krypty
      */
     //% block
-    export function mojaKrypta(): dungeon.Krypta {
+    export function init() {
         let levels = myData.levels;
-        let oKrypta = new dungeon.Krypta(myData.name)
+        _krypta = new dungeon.Krypta(myData.name)
         for (let i = 0; i < levels.length; i++) {
             let myLevel = levels[i];
             let oLv = new dungeon.Level(i, myLevel.roomStart, myLevel.roomEnd);
@@ -33,18 +34,11 @@ namespace dungeon {
                 let myRoom = myLevel.rooms[k];
                 oLv.addRoom(new dungeon.Room(myRoom.no, myRoom.doors, myRoom.score));
             }
-            if(i==0){
-                init(oLv);
-            }
-            oKrypta.addLevel(oLv)
+            _krypta.addLevel(oLv)
         }
-        return oKrypta;
-    }
-    function init(startLevel:Level): void {
-        _currentLevel = startLevel;
+        _currentLevel = _krypta.levels[0];
         _currentRoom = _currentLevel.rooms[0];
     }
-    
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     export class Krypta{
         name: string;       
