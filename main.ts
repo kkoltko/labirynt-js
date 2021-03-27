@@ -2,7 +2,7 @@ console.log("+++++++++START++++++++++++++++++++++++")
 basic.clearScreen()
 console.log(">>> Start init")
 images.iconImage(IconNames.Heart)
-//dungeon.init()
+dungeon.init()
 console.log(">>> End init")
 input.onButtonPressed(Button.A, function () {
      console.log(">>> onButtonPressed A")

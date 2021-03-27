@@ -9,8 +9,7 @@
     "files": [
         "main.ts",
         "README.md",
-        "krypta.ts",
-        "data.ts"
+        "krypta.ts"
     ],
     "testFiles": [
         "test.ts"
