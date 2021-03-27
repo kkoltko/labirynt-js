@@ -1,21 +1,27 @@
-let dane = {
-    "name": "Moja krypta",
-    "levels": [
-        {
-            "roomStart": 10,
-            "roomEnd": 61,
-            "rooms": [
+namespace dane {
+    //% block
+    export function getData(): any {
+        return {
+            "name": "Moja krypta",
+            "levels": [
                 {
-                    "no": 11,
-                    "doors": "GP",
-                    "score": 1
-                },
-                {
-                    "no": 12,
-                    "doors": "LP",
-                    "score": 1
+                    "roomStart": 10,
+                    "roomEnd": 61,
+                    "rooms": [
+                        {
+                            "no": 11,
+                            "doors": "GP",
+                            "score": 1
+                        },
+                        {
+                            "no": 12,
+                            "doors": "LP",
+                            "score": 1
+                        }
+                    ]
                 }
             ]
         }
-    ]
+    }
+
 }

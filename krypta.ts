@@ -1,59 +1,41 @@
-enum Door {
-    //% block="Left"
-    Left,
-    //% block="Right"
-    Right,
-    //% block="Top"
-    Top,
-    //% block="Bottom"
-    Bottom
-}
-/*
-declare module Dane{
-    export interface Level {
-        roomStart: string;
-        roomEnd: string;
-        rooms: Room[];
-    }
-    export interface Krypta {
-        name: string;
-        levels: Level[];
-    }
-    export interface Room {
-        no: number;
-        doors: string;
-        score: number;
-    }   
-}
-*/
 /**
- * Krypta
+ * dungeon
  */
 //% weight=100 color=#0fbc11 icon=""
-namespace krypta {
+namespace dungeon {
     let _currentLevel: Level = null;
     let _currentRoom: Room = null;
-    let _name: string = "";
-    let _levels: Level[] = [];
     /**
-     * Ustwawe
-     * @param d Door, eg: R
+     * Startowy level 
+     * @param startLevel Level
      */
     //% block
-    export function init(): void {
-        _currentLevel = _levels[0];
+    export function init(startLevel:Level): void {
+        _currentLevel = startLevel;
         _currentRoom = _currentLevel.rooms[0];
     }
     //% block
-    export function addLevel(level: Level): void {
-        console.log("addLevel:" + level)
-        _levels.push(level);
-    }
     export function currentLevel(): Level {
         return _currentLevel;
     }
+    //% block
     export function currentRoom(): Room {
         return _currentRoom;
+    }
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    export class Krypta{
+        name: string;       
+        levels: Level[];
+        constructor(name: string) {
+            this.name = name;
+            this.levels = [];
+        }
+        addLevel(level:Level) {
+            this.levels.push(level);
+        }
+        toString() {
+            return "name:" + this.name + ", levels:" + this.levels.length;
+        }
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     export class Level{

@@ -1,7 +1,6 @@
 console.log("+++++++++START++++++++++++++++++++++++")
-console.log(dane.name)
-console.log(dane.levels)
 console.log(">>> Load data")
+/*
 let levels = dane.levels;
 for (let i = 0; i < levels.length; i++) {
     let myLevel = levels[i];
@@ -15,9 +14,9 @@ for (let i = 0; i < levels.length; i++) {
 //Dane.
 console.log(">>> Init")
 krypta.init();
-
-console.log("Aktualny level: " + krypta.currentLevel())
-console.log("Aktualny room: " + krypta.currentRoom())
+*/
+console.log("Aktualny level: " + dungeon.currentLevel())
+console.log("Aktualny room: " + dungeon.currentRoom())
 
 //import * from "krypta.json";
 /*
