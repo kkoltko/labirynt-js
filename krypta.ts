@@ -41,11 +41,11 @@ namespace krypta {
      */
     //% block
     export function addLevel(level: Level): void {
-        console.log("addLevel")
+        console.log("addLevel aaaaa")
     }
     //% block
     export function start(level: number,room: number): void {
-        console.log("Start")
+        console.log("Start aaaa")
     }
     export function currentLevel(): Level {
         return _currentLevel;
