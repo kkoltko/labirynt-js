@@ -1,20 +1,9 @@
 console.log("+++++++++START++++++++++++++++++++++++")
 console.log(">>> Load data")
-/*
-let levels = dane.levels;
-for (let i = 0; i < levels.length; i++) {
-    let myLevel = levels[i];
-    let oLv = new krypta.Level(i, myLevel.roomStart, myLevel.roomEnd);
-    for (let k = 0; k < myLevel.rooms.length; k++) {
-        let myRoom = myLevel.rooms[k];
-        oLv.addRoom(new krypta.Room(myRoom.no, myRoom.doors, myRoom.score));
-    }
-    krypta.addLevel(oLv)
-}
+
 //Dane.
 console.log(">>> Init")
-krypta.init();
-*/
+//dungeon.init();
 console.log("Aktualny level: " + dungeon.currentLevel())
 console.log("Aktualny room: " + dungeon.currentRoom())
 
