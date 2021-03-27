@@ -1,3 +1,16 @@
+enum Door {
+    //% Door="P"
+    P,
+    //% block="L"
+    L,
+    //% Door="G"
+    G,
+    //% block="D"
+    D,
+    //% block="X"
+    X
+}
+
 /**
  * dungeon
  */
@@ -24,14 +37,18 @@ namespace dungeon {
      * Aktulany Room
      */
     //% block
-    export function nextRoom(goOverDoor:string): Room {
-        if(goOverDoor==""){
-            return _currentRoom;    
+    export function nextRoom(d:Door): void {
+        console.log("nextRoom.go over door:" + d);
+        if(!_currentRoom.hasDoor(d)){
+            console.log("hasDoor NO");
+            return
         }
-        if(!_currentRoom.hasDoor(goOverDoor)){
-            return _currentRoom;    
-        }
-        return _currentRoom;
+        console.log("hasDoor YES");
+        let nextNo = _currentRoom.nextRoomNo(d)
+        console.log("nextNo:" + nextNo);
+        let nextRoom = _currentLevel.findRoom(nextNo);
+        console.log("nextRoom:" + nextRoom);
+        _currentRoom = nextRoom;
     }
     /**
      * Incjacja mojej Krypty
@@ -41,16 +58,11 @@ namespace dungeon {
         _krypta = new dungeon.Krypta("Moja krypta")        
         for (let i = 0; i < levels.length; i++) {
             let myLevel = levels[i];
-            console.log("myLevel.roomStart")
-            console.log(myLevel["roomStart"])
-            console.log("myLevel.rooms")
             let myRooms = myLevel["rooms"] 
             console.log(myRooms.length)
             let oLv = new Level(i+1, myLevel["roomStart"], myLevel["roomEnd"]);
             for (let k = 0; k < myRooms.length; k++) {
                 let myRoom = myRooms[k];
-                console.log("myRoom.no")
-                console.log(myRoom["no"])
                 oLv.addRoom(new Room(myRoom["no"], myRoom["doors"], myRoom["score"]));
             }
             _krypta.addLevel(oLv)
@@ -98,30 +110,38 @@ namespace dungeon {
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     export class Room{
         no: number;
-        doors: string;
+        doors: Door[] = [];
+        doorsStr: string;
         score: number;
-        constructor(no: number,doors: string, score: number) {
+        constructor(no: number,doorsStr: string, score: number) {
             this.no = no;
-            this.doors = doors;
+            this.doorsStr = doorsStr;
+            for(let i=0;i<doorsStr.length;i++){
+                if(doorsStr.indexOf("P")>0)this.doors.push(Door.P);
+                if(doorsStr.indexOf("L")>0)this.doors.push(Door.L);
+                if(doorsStr.indexOf("G")>0)this.doors.push(Door.G);
+                if(doorsStr.indexOf("D")>0)this.doors.push(Door.D);
+            }            
             this.score = score;
         }
-        hasDoor(d:string) {
-            if(!d || d=="X"){
-                return false;
-            }
-            return this.doors.indexOf(d) > -1;
+        hasDoor(d:Door) {            
+            let nameOfDoor = d+"";
+            let flag = this.doors.indexOf(d)>-1;
+            console.log("> hasDoor["+nameOfDoor+"]:" + flag)
+            return flag;
+
         }
-        nextRoomNo(d:string) {
+        nextRoomNo(d:Door) {
             if(!this.hasDoor(d)){
                 return this.no;
             }
-            if(d=="L"){
+            if(d==Door.X){
                 return this.no-1;
-            }else if(d=="P"){
+            }else if(d==Door.P){
                 return this.no+1;
-            }else if(d=="G"){
+            }else if(d==Door.G){
                 return this.no+10;
-            }else if(d=="D"){
+            }else if(d==Door.D){
                 return this.no-10;
             }
             return this.no;
