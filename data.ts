@@ -3,6 +3,10 @@
  */
 //% weight=100 color=#0fbc11 icon=""
 namespace data {    
+    /**
+     * Pobierz dane
+     */
+    //% block
     export function getData(): any {
         return {
             "name": "Moja krypta",
