@@ -30,24 +30,30 @@ namespace dungeon {
                 {
                     "roomStart": 10,
                     "roomEnd": 61,
-                    "rooms": [{ 'no': 11, 'doors': 'GPL', 'score': 1 }, { 'no': 12, 'doors': 'PL', 'score': 2 }, { 'no': 13, 'doors': 'PL', 'score': 3 }, { 'no': 14, 'doors': 'GL', 'score': 4 }, { 'no': 15, 'doors': 'GD', 'score': 5 }, { 'no': 21, 'doors': 'DP', 'score': 1 }, { 'no': 22, 'doors': 'GPL', 'score': 2 }, { 'no': 23, 'doors': 'L', 'score': 3 }, { 'no': 24, 'doors': 'GDP', 'score': 4 }, { 'no': 25, 'doors': 'GDL', 'score': 5 }, { 'no': 31, 'doors': 'P', 'score': 1 }, { 'no': 32, 'doors': 'DPL', 'score': 2 }, { 'no': 33, 'doors': 'L', 'score': 3 }, { 'no': 34, 'doors': 'GD', 'score': 4 }, { 'no': 35, 'doors': 'GD', 'score': 5 }, { 'no': 41, 'doors': 'GP', 'score': 1 }, { 'no': 42, 'doors': 'PL', 'score': 2 }, { 'no': 43, 'doors': 'PL', 'score': 3 }, { 'no': 44, 'doors': 'DL', 'score': 4 }, { 'no': 45, 'doors': 'GD', 'score': 5 }, { 'no': 51, 'doors': 'GDP', 'score': 1 }, { 'no': 52, 'doors': 'L', 'score': 2 }, { 'no': 53, 'doors': 'P', 'score': 3 }, { 'no': 54, 'doors': 'PL', 'score': 4 }, { 'no': 55, 'doors': 'DL', 'score': 5 }]
+                    "rooms": [{ 'no': 10, 'doors': 'P','score': 0},{'no': 11, 'doors': 'GPL', 'score': 1 }, { 'no': 12, 'doors': 'PL', 'score': 2 }, { 'no': 13, 'doors': 'PL', 'score': 3 }, { 'no': 14, 'doors': 'GL', 'score': 4 }, { 'no': 15, 'doors': 'GD', 'score': 5 }, { 'no': 21, 'doors': 'DP', 'score': 1 }, { 'no': 22, 'doors': 'GPL', 'score': 2 }, { 'no': 23, 'doors': 'L', 'score': 3 }, { 'no': 24, 'doors': 'GDP', 'score': 4 }, { 'no': 25, 'doors': 'GDL', 'score': 5 }, { 'no': 31, 'doors': 'P', 'score': 1 }, { 'no': 32, 'doors': 'DPL', 'score': 2 }, { 'no': 33, 'doors': 'L', 'score': 3 }, { 'no': 34, 'doors': 'GD', 'score': 4 }, { 'no': 35, 'doors': 'GD', 'score': 5 }, { 'no': 41, 'doors': 'GP', 'score': 1 }, { 'no': 42, 'doors': 'PL', 'score': 2 }, { 'no': 43, 'doors': 'PL', 'score': 3 }, { 'no': 44, 'doors': 'DL', 'score': 4 }, { 'no': 45, 'doors': 'GD', 'score': 5 }, { 'no': 51, 'doors': 'GDP', 'score': 1 }, { 'no': 52, 'doors': 'L', 'score': 2 }, { 'no': 53, 'doors': 'P', 'score': 3 }, { 'no': 54, 'doors': 'PL', 'score': 4 }, { 'no': 55, 'doors': 'DL', 'score': 5 }]
                 }
             ];
         console.log("Levels")
         console.log(levels)
-        /*
+        
         for (let i = 0; i < levels.length; i++) {
             let myLevel = levels[i];
-            let oLv = new dungeon.Level(i, myLevel.roomStart, myLevel.roomEnd);
-            for (let k = 0; k < myLevel.rooms.length; k++) {
-                let myRoom = myLevel.rooms[k];
-                oLv.addRoom(new dungeon.Room(myRoom.no, myRoom.doors, myRoom.score));
+            console.log("myLevel.roomStart")
+            console.log(myLevel["roomStart"])
+            console.log("myLevel.rooms")
+            let myRooms = myLevel["rooms"] 
+            console.log(myRooms.length)
+            let oLv = new Level(i+1, myLevel["roomStart"], myLevel["roomEnd"]);
+            for (let k = 0; k < myRooms.length; k++) {
+                let myRoom = myRooms[k];
+                console.log("myRoom.no")
+                console.log(myRoom["no"])
+                oLv.addRoom(new Room(myRoom["no"], myRoom["doors"], myRoom["score"]));
             }
             _krypta.addLevel(oLv)
-        }
+        }       
         _currentLevel = _krypta.levels[0];
-        _currentRoom = _currentLevel.rooms[0];
-        */
+        _currentRoom = _currentLevel.rooms[0];       
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     export class Krypta{

@@ -1,20 +1,19 @@
 console.log("+++++++++START++++++++++++++++++++++++")
 basic.clearScreen()
-console.log(">>> Start init")
-images.iconImage(IconNames.Heart)
-dungeon.init()
-console.log(">>> End init")
 input.onButtonPressed(Button.A, function () {
-     console.log(">>> onButtonPressed A")
+    console.log(">>> onButtonPressed A")
+    console.log(">>> Dungeon init Start")
+    dungeon.init()
+    console.log(">>> Dungeon init OK")
+    console.log("Aktualny level: " + dungeon.currentLevel())
+    console.log("Aktualny room: " + dungeon.currentRoom())
+    displayRoom(dungeon.currentRoom())
 })
 input.onButtonPressed(Button.B, function () {
     console.log(">>> onButtonPressed B")
+    console.log(">>> IconNames.Heart")
+    images.iconImage(IconNames.Heart).showImage(0)
 })
-/*
-console.log("Aktualny level: " + dungeon.currentLevel())
-console.log("Aktualny room: " + dungeon.currentRoom())
-displayRoom(dungeon.currentRoom())
-*/
 
 
 function displayRoom (room: dungeon.Room) {
