@@ -4,8 +4,7 @@
     "dependencies": {
         "core": "*",
         "radio": "*",
-        "microphone": "*",
-        "snipe": "github:kkoltko/snipe#master"
+        "microphone": "*"
     },
     "files": [
         "main.ts",

@@ -1,3 +1,22 @@
+console.log("+++++++++START++++++++++++++++++++++++")
+basic.clearScreen()
+console.log(">>> Start init")
+images.iconImage(IconNames.Heart)
+//dungeon.init()
+console.log(">>> End init")
+input.onButtonPressed(Button.A, function () {
+     console.log(">>> onButtonPressed A")
+})
+input.onButtonPressed(Button.B, function () {
+    console.log(">>> onButtonPressed B")
+})
+/*
+console.log("Aktualny level: " + dungeon.currentLevel())
+console.log("Aktualny room: " + dungeon.currentRoom())
+displayRoom(dungeon.currentRoom())
+*/
+
+
 function displayRoom (room: dungeon.Room) {
     console.log(">>> displayRoom" + room)
     if(!room){
@@ -26,16 +45,3 @@ function displayRoom (room: dungeon.Room) {
         }
     }
 }
-
-input.onButtonPressed(Button.A, function () {
-    
-})
-input.onButtonPressed(Button.B, function () {
-    
-})
-console.log("+++++++++START++++++++++++++++++++++++")
-console.log(">>> Init")
-dungeon.init()
-console.log("Aktualny level: " + dungeon.currentLevel())
-console.log("Aktualny room: " + dungeon.currentRoom())
-displayRoom(dungeon.currentRoom())
