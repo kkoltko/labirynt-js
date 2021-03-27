@@ -21,8 +21,12 @@ input.onLogoEvent(TouchButtonEvent.Pressed, function () {
 })
 function goOverDoor(d: Door) {
     console.log(">>> goOverDoor:" + d)
-    dungeon.nextRoom(d);
-    displayRoom(dungeon.currentRoom())
+    let isEnd = dungeon.nextRoom(d);
+    if(isEnd){
+        images.iconImage(IconNames.Butterfly).showImage(0)
+    }else{
+        displayRoom(dungeon.currentRoom())
+    }    
 }
 //============================================
 function displayRoom (room: dungeon.Room) {

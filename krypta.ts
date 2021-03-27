@@ -37,18 +37,20 @@ namespace dungeon {
      * Aktulany Room
      */
     //% block
-    export function nextRoom(d:Door): void {
-        console.log("nextRoom.go over door:" + d);
+    export function nextRoom(d:Door): boolean {
         if(!_currentRoom.hasDoor(d)){
-            console.log("hasDoor NO");
-            return
+            return false
         }
-        console.log("hasDoor YES");
         let nextNo = _currentRoom.nextRoomNo(d)
-        console.log("nextNo:" + nextNo);
+
+        if(nextNo==_currentLevel.roomEnd){
+            console.log("Level END");
+            return true
+        }
         let nextRoom = _currentLevel.findRoom(nextNo);
         console.log("nextRoom:" + nextRoom);
         _currentRoom = nextRoom;
+        return false
     }
     /**
      * Incjacja mojej Krypty
@@ -117,37 +119,32 @@ namespace dungeon {
             this.no = no;
             this.doorsStr = doorsStr;
             for(let i=0;i<doorsStr.length;i++){
-                if(doorsStr.indexOf("P")>0)this.doors.push(Door.P);
-                if(doorsStr.indexOf("L")>0)this.doors.push(Door.L);
-                if(doorsStr.indexOf("G")>0)this.doors.push(Door.G);
-                if(doorsStr.indexOf("D")>0)this.doors.push(Door.D);
+                if(doorsStr.indexOf("P")>-1)this.doors.push(Door.P);
+                if(doorsStr.indexOf("L")>-1)this.doors.push(Door.L);
+                if(doorsStr.indexOf("G")>-1)this.doors.push(Door.G);
+                if(doorsStr.indexOf("D")>-1)this.doors.push(Door.D);
             }            
             this.score = score;
         }
         hasDoor(d:Door) {            
-            let nameOfDoor = d+"";
-            let flag = this.doors.indexOf(d)>-1;
-            console.log("> hasDoor["+nameOfDoor+"]:" + flag)
-            return flag;
-
+            return this.doors.indexOf(d)>-1;
         }
         nextRoomNo(d:Door) {
-            if(!this.hasDoor(d)){
-                return this.no;
-            }
-            if(d==Door.X){
-                return this.no-1;
-            }else if(d==Door.P){
-                return this.no+1;
-            }else if(d==Door.G){
-                return this.no+10;
-            }else if(d==Door.D){
-                return this.no-10;
+            if(this.hasDoor(d)){
+                if(d==Door.L){
+                    return this.no-1;
+                }else if(d==Door.P){
+                    return this.no+1;
+                }else if(d==Door.G){
+                    return this.no+10;
+                }else if(d==Door.D){
+                    return this.no-10;
+                }
             }
             return this.no;
         }
         toString() {
-            return "no:" + this.no + ", doors:" + this.doors + ", score" + this.score;
+            return "no:" + this.no + ", doors:" + this.doorsStr + ", score" + this.score;
         }
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
