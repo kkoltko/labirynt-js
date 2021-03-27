@@ -1,13 +1,23 @@
-//import krypta1 from "a.json";
-//a.primaryMain
-//K
-
-//krypta.
-
+console.log("+++++++++START++++++++++++++++++++++++")
+console.log(dane.name)
+console.log(dane.levels)
+console.log(">>> Load data")
+let levels = dane.levels;
+for (let i = 0; i < levels.length; i++) {
+    let myLevel = levels[i];
+    let oLv = new krypta.Level(i, myLevel.roomStart, myLevel.roomEnd);
+    for (let k = 0; k < myLevel.rooms.length; k++) {
+        let myRoom = myLevel.rooms[k];
+        oLv.addRoom(new krypta.Room(myRoom.no, myRoom.doors, myRoom.score));
+    }
+    krypta.addLevel(oLv)
+}
 //Dane.
-let lv = new krypta.Level(0);
-lv.addRoom(new krypta.Room(11,"LP",1));
-krypta.addLevel(lv)
+console.log(">>> Init")
+krypta.init();
+
+console.log("Aktualny level: " + krypta.currentLevel())
+console.log("Aktualny room: " + krypta.currentRoom())
 
 //import * from "krypta.json";
 /*
@@ -45,14 +55,14 @@ input.onButtonPressed(Button.A, function () {
     displayRoom(roomInfo(myNumber))
     myNumber++
     if(myNumber>21){
-        myNumber=10 
+        myNumber=10
     }
 })
 input.onButtonPressed(Button.B, function () {
     displayRoom(roomInfo(myNumber))
     myNumber--
     if(myNumber<10){
-        myNumber=10 
+        myNumber=10
     }
 })
 let myString = "Oskar"

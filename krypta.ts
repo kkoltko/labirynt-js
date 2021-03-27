@@ -31,21 +31,23 @@ declare module Dane{
  */
 //% weight=100 color=#0fbc11 icon=""
 namespace krypta {
-    let _name: string = "";
     let _currentLevel: Level = null;
     let _currentRoom: Room = null;
+    let _name: string = "";
     let _levels: Level[] = [];
     /**
      * Ustwawe
      * @param d Door, eg: R
      */
     //% block
-    export function addLevel(level: Level): void {
-        console.log("addLevel aaaaa")
+    export function init(): void {
+        _currentLevel = _levels[0];
+        _currentRoom = _currentLevel.rooms[0];
     }
     //% block
-    export function start(level: number,room: number): void {
-        console.log("Start aaaa")
+    export function addLevel(level: Level): void {
+        console.log("addLevel:" + level)
+        _levels.push(level);
     }
     export function currentLevel(): Level {
         return _currentLevel;
@@ -56,9 +58,13 @@ namespace krypta {
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     export class Level{
         id: number;
+        roomStart: number;
+        roomEnd: number;
         rooms: Room[];
-        constructor(id: number) {
+        constructor(id: number,roomStart: number,roomEnd: number) {
             this.id = id;
+            this.roomStart = roomStart;
+            this.roomEnd = roomEnd;
             this.rooms = [];
         }
         addRoom(room:Room) {
