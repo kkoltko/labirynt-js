@@ -1,7 +1,7 @@
 /**
  * Data
  */
-//% weight=100 color=#911f41 icon="D"
+//% weight=100 color=#911f41 icon="\uf044"
 namespace data {    
     /**
      * Moja Krypta
@@ -37,6 +37,11 @@ let myData = {
                         },
                         {
                             "no": 12,
+                            "doors": "LP",
+                            "score": 1
+                        },
+                        {
+                            "no": 13,
                             "doors": "LP",
                             "score": 1
                         }

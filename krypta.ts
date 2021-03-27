@@ -1,7 +1,7 @@
 /**
  * dungeon
  */
-//% weight=100 color=#34a1eb icon="\uf6d9"
+//% weight=100 color=#34a1eb icon="\uf279" block="Dungeon"
 namespace dungeon {
     let _currentLevel: Level = null;
     let _currentRoom: Room = null;
