@@ -20,22 +20,25 @@ namespace dungeon {
     export function currentRoom(): Room {
         return _currentRoom;
     }
+     /**
+     * Aktulany Room
+     */
+    //% block
+    export function nextRoom(goOverDoor:string): Room {
+        if(goOverDoor==""){
+            return _currentRoom;    
+        }
+        if(!_currentRoom.hasDoor(goOverDoor)){
+            return _currentRoom;    
+        }
+        return _currentRoom;
+    }
     /**
      * Incjacja mojej Krypty
      */
     //% block
     export function init() {
-        _krypta = new dungeon.Krypta("Moja krypta")
-        let levels = [
-                {
-                    "roomStart": 10,
-                    "roomEnd": 61,
-                    "rooms": [{ 'no': 10, 'doors': 'P','score': 0},{'no': 11, 'doors': 'GPL', 'score': 1 }, { 'no': 12, 'doors': 'PL', 'score': 2 }, { 'no': 13, 'doors': 'PL', 'score': 3 }, { 'no': 14, 'doors': 'GL', 'score': 4 }, { 'no': 15, 'doors': 'GD', 'score': 5 }, { 'no': 21, 'doors': 'DP', 'score': 1 }, { 'no': 22, 'doors': 'GPL', 'score': 2 }, { 'no': 23, 'doors': 'L', 'score': 3 }, { 'no': 24, 'doors': 'GDP', 'score': 4 }, { 'no': 25, 'doors': 'GDL', 'score': 5 }, { 'no': 31, 'doors': 'P', 'score': 1 }, { 'no': 32, 'doors': 'DPL', 'score': 2 }, { 'no': 33, 'doors': 'L', 'score': 3 }, { 'no': 34, 'doors': 'GD', 'score': 4 }, { 'no': 35, 'doors': 'GD', 'score': 5 }, { 'no': 41, 'doors': 'GP', 'score': 1 }, { 'no': 42, 'doors': 'PL', 'score': 2 }, { 'no': 43, 'doors': 'PL', 'score': 3 }, { 'no': 44, 'doors': 'DL', 'score': 4 }, { 'no': 45, 'doors': 'GD', 'score': 5 }, { 'no': 51, 'doors': 'GDP', 'score': 1 }, { 'no': 52, 'doors': 'L', 'score': 2 }, { 'no': 53, 'doors': 'P', 'score': 3 }, { 'no': 54, 'doors': 'PL', 'score': 4 }, { 'no': 55, 'doors': 'DL', 'score': 5 }]
-                }
-            ];
-        console.log("Levels")
-        console.log(levels)
-        
+        _krypta = new dungeon.Krypta("Moja krypta")        
         for (let i = 0; i < levels.length; i++) {
             let myLevel = levels[i];
             console.log("myLevel.roomStart")
@@ -85,6 +88,9 @@ namespace dungeon {
         addRoom(room:Room) {
             this.rooms.push(room);
         }
+        findRoom(no:number) {
+            return this.rooms.find(room => room.no === no)
+        }
         toString() {
             return "id:" + this.id + ", rooms:" + this.rooms.length;
         }
@@ -100,7 +106,25 @@ namespace dungeon {
             this.score = score;
         }
         hasDoor(d:string) {
+            if(!d || d=="X"){
+                return false;
+            }
             return this.doors.indexOf(d) > -1;
+        }
+        nextRoomNo(d:string) {
+            if(!this.hasDoor(d)){
+                return this.no;
+            }
+            if(d=="L"){
+                return this.no-1;
+            }else if(d=="P"){
+                return this.no+1;
+            }else if(d=="G"){
+                return this.no+10;
+            }else if(d=="D"){
+                return this.no-10;
+            }
+            return this.no;
         }
         toString() {
             return "no:" + this.no + ", doors:" + this.doors + ", score" + this.score;
@@ -108,3 +132,10 @@ namespace dungeon {
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
+let levels = [
+                {
+                    "roomStart": 10,
+                    "roomEnd": 61,
+                    "rooms": [{ 'no': 10, 'doors': 'P','score': 0},{'no': 11, 'doors': 'GPL', 'score': 1 }, { 'no': 12, 'doors': 'PL', 'score': 2 }, { 'no': 13, 'doors': 'PL', 'score': 3 }, { 'no': 14, 'doors': 'GL', 'score': 4 }, { 'no': 15, 'doors': 'GD', 'score': 5 }, { 'no': 21, 'doors': 'DP', 'score': 1 }, { 'no': 22, 'doors': 'GPL', 'score': 2 }, { 'no': 23, 'doors': 'L', 'score': 3 }, { 'no': 24, 'doors': 'GDP', 'score': 4 }, { 'no': 25, 'doors': 'GDL', 'score': 5 }, { 'no': 31, 'doors': 'P', 'score': 1 }, { 'no': 32, 'doors': 'DPL', 'score': 2 }, { 'no': 33, 'doors': 'L', 'score': 3 }, { 'no': 34, 'doors': 'GD', 'score': 4 }, { 'no': 35, 'doors': 'GD', 'score': 5 }, { 'no': 41, 'doors': 'GP', 'score': 1 }, { 'no': 42, 'doors': 'PL', 'score': 2 }, { 'no': 43, 'doors': 'PL', 'score': 3 }, { 'no': 44, 'doors': 'DL', 'score': 4 }, { 'no': 45, 'doors': 'GD', 'score': 5 }, { 'no': 51, 'doors': 'GDP', 'score': 1 }, { 'no': 52, 'doors': 'L', 'score': 2 }, { 'no': 53, 'doors': 'P', 'score': 3 }, { 'no': 54, 'doors': 'PL', 'score': 4 }, { 'no': 55, 'doors': 'DL', 'score': 5 }]
+                }
+            ];
