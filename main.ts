@@ -87,15 +87,12 @@ function goOverDoor(d: Door) {
         isEnd = true;
         images.iconImage(IconNames.Butterfly).showImage(0)
     }else{
-        onEnterToRoom(d);
+        onEnterToRoom();
     }    
 }
-function onEnterToRoom (d: Door) {
-    game.pause()        
-    //basic.clearScreen()
+function onEnterToRoom () {
     displayRoomSciany(dungeon.currentRoom())
     resetLudzikPosition()
-    game.resume()
 }
 function ludzikMove() {
     ludzik.setX(ludzikPosX) 
@@ -164,4 +161,4 @@ initRoomDoors()
 initRoomSciany()
 resetLudzikPosition()
 initLudzik()
-onEnterToRoom (Door.P)
+onEnterToRoom ()
