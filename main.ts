@@ -37,43 +37,46 @@ function checkRight () {
 }
 //============================================
 // Pokoj
-const snipe = 3;
-function displayCelownik () {
-    game.createSprite(2, 0)
-    game.createSprite(2, 1)
-    led.plotBrightness(2, 2, snipe)
-    led.plotBrightness(2, 3, snipe)
-    led.plotBrightness(2, 4, snipe)
-    led.plotBrightness(0, 2, snipe)
-    led.plotBrightness(1, 2, snipe)
-    led.plotBrightness(3, 2, snipe)
-    led.plotBrightness(4, 2, snipe)
-}
-function displayRoom (room: dungeon.Room) {
+function displayRoomSciany (room: dungeon.Room) {
     console.log(">>> displayRoom: " + room)
     if(!room){
         return
     }
-    for(let x=0;x<5;x++){
+    openDoor(roomWallSpirits[20],room.hasDoor(Door.G))
+    openDoor(roomWallSpirits[24],room.hasDoor(Door.D))
+    openDoor(roomWallSpirits[42],room.hasDoor(Door.P))
+    openDoor(roomWallSpirits[2],room.hasDoor(Door.L))
+}
+function openDoor(door: game.LedSprite, isOpen: boolean) {
+   //isOpen?door.setBrightness(0):door.setBrightness(roomWallSpiritsJasnosc)
+   if(isOpen){door.setBrightness(0)}else{door.setBrightness(roomWallSpiritsJasnosc)}
+}
+function initRoomSciany () {
+    for(let x=0;x<5;x++){       
         for(let y=0;y<5;y++){
-            if (room.hasDoor(Door.G)) {
-                if(x==2 && y==0)continue;
-            }
-            if (room.hasDoor(Door.D)) {
-                if(x==2 && y==4)continue;
-            }
-            if (room.hasDoor(Door.P)) {
-                if(x==4 && y==2)continue;
-            }
-            if (room.hasDoor(Door.L)) {
-                if(x==0 && y==2)continue;
-            }
             if(x==0 || x==4 || y==0 || y==4){
                 let sciana = game.createSprite(x, y)
                 sciana.set(LedSpriteProperty.Brightness, 50)
+                let index = parseInt(x+""+y);
+                roomWallSpirits.set(index,sciana);
             }
         } 
     }
+}
+
+function initRoomDoors() {
+    roomDoorSpirits.set(Door.G, game.createSprite(2, 1))
+    roomDoorSpirits.set(Door.D, game.createSprite(2, 3))
+    roomDoorSpirits.set(Door.P, game.createSprite(3, 2))
+    roomDoorSpirits.set(Door.L, game.createSprite(1, 2))
+    for(let x=0;x<roomDoorSpirits.length;x++){
+        roomDoorSpirits[x].set(LedSpriteProperty.Brightness, 0)
+    }    
+}
+function initLudzik() {
+    ludzik = game.createSprite(ludzikPosX, ludzikPosY)
+    ludzik.set(LedSpriteProperty.Brightness, 180)
+    ludzik.set(LedSpriteProperty.Blink, 500)
 }
 //============================================
 function goOverDoor(d: Door) {
@@ -84,65 +87,49 @@ function goOverDoor(d: Door) {
         isEnd = true;
         images.iconImage(IconNames.Butterfly).showImage(0)
     }else{
-        onEnterToRoom (d);
+        onEnterToRoom(d);
     }    
 }
-
-function initRoomDoor () {
-    roomDoorSpirits.set(Door.G, game.createSprite(2, 1))
-    roomDoorSpirits.set(Door.D, game.createSprite(2, 3))
-    roomDoorSpirits.set(Door.P, game.createSprite(3, 2))
-    roomDoorSpirits.set(Door.L, game.createSprite(1, 2))
-    for(let x=0;x<roomDoorSpirits.length;x++){
-        roomDoorSpirits[x].set(LedSpriteProperty.Brightness, 0)
-    }    
-}
-
 function onEnterToRoom (d: Door) {
+    game.pause()        
     //basic.clearScreen()
-    
-    ludzik = game.createSprite(2, 2)
-    ludzik.off()
-    ludzik.set(LedSpriteProperty.Brightness, 180)
-    ludzik.set(LedSpriteProperty.Blink, 500)
-    displayRoom(dungeon.currentRoom())
-    ludzik.setX(roomDoorSpirits.get(d).x())
-    ludzik.setY(roomDoorSpirits.get(d).y())
-    ludzik.on()
-    //displayCelownik ()
+    displayRoomSciany(dungeon.currentRoom())
+    resetLudzikPosition()
+    game.resume()
+}
+function ludzikMove() {
+    ludzik.setX(ludzikPosX) 
+    ludzik.setY(ludzikPosY)
+    basic.pause(opoznienie)
 }
 //============================================
 // INTERAKCJE
 input.onButtonPressed(Button.A, function () {
    // INFO
+   ludzikGoOverDoor()
 })
 input.onButtonPressed(Button.B, function () {
-   /*
-    time += 1
-     if (Ludzikik.isTouching(doorUp)) {
-        Ludzikik.delete()
-        doorUp.delete()
-        basic.showString("Up")
-    } else if (Ludzikik.isTouching(doorRight)) {
-        Ludzikik.delete()
-        doorRight.delete()
-        basic.showString("RIGHT")
-    } else if (Ludzikik.isTouching(mySkarb)) {
-        game.addScore(10)
-        mySkarb.delete()
-    } else {
-    	
-    }
-    */
+   ludzikGoOverDoor()
 })
+function ludzikGoOverDoor() {    
+    if (ludzik.isTouching(roomDoorSpirits[Door.G])) {
+        goOverDoor(Door.G)
+    } else if (ludzik.isTouching(roomDoorSpirits[Door.D])) {
+        goOverDoor(Door.D)
+    } else if (ludzik.isTouching(roomDoorSpirits[Door.P])) {
+        goOverDoor(Door.P)
+    } else if (ludzik.isTouching(roomDoorSpirits[Door.L])) {
+        goOverDoor(Door.L)
+    }
+}
+function resetLudzikPosition(){
+    ludzikPosX = 2
+    ludzikPosY = 2
+}
 
 basic.forever(function () {
-    if(ludzik){
-        if (checkUp() || checkDown() || checkLeft() || checkRight()) {
-            ludzik.set(LedSpriteProperty.X, ludzikPosX) 
-            ludzik.set(LedSpriteProperty.Y, ludzikPosY)
-            basic.pause(1000)            
-        }
+    if (checkUp() || checkDown() || checkLeft() || checkRight()) {
+        ludzikMove()        
     }
 })
 //###########################################
@@ -152,20 +139,19 @@ let isEnd = false;
 let ludzik: game.LedSprite = null
 let roomDoorSpiritsJasnosc:number = 5; 
 let roomDoorSpirits : game.LedSprite[] = []
+let roomWallSpiritsJasnosc:number = 50; 
+let roomWallSpirits : game.LedSprite[] = []
 //============================================
-let time = 0
-let ludzikPosX = 0
-let ludzikPosY = 0
+let ludzikPosX = 2
+let ludzikPosY = 2
 //---------------
 // stale do poruszania sie
 const posMin = 1
 const posMax = 3
-const czulosc = 500
+const czulosc = 300
 const speed = 500
+const opoznienie = 750
 //---------------
-//###########################################
-//onStart()
-
 //###########################################
 console.log("+++++++++START++++++++++++++++++++++++")
 basic.clearScreen()
@@ -174,6 +160,8 @@ dungeon.init()
 console.log(">>> Dungeon init OK")
 console.log(">>> Aktualny level: " + dungeon.currentLevel())
 console.log(">>> Aktualny room: " + dungeon.currentRoom())
-initRoomDoor();
-onEnterToRoom (Door.L)
-
+initRoomDoors()
+initRoomSciany()
+resetLudzikPosition()
+initLudzik()
+onEnterToRoom (Door.P)
