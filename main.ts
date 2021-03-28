@@ -105,8 +105,6 @@ function onEnterToRoom (d: Door) {
     ludzik.off()
     ludzik.set(LedSpriteProperty.Brightness, 180)
     ludzik.set(LedSpriteProperty.Blink, 500)
-
- 
     displayRoom(dungeon.currentRoom())
     ludzik.setX(roomDoorSpirits.get(d).x())
     ludzik.setY(roomDoorSpirits.get(d).y())
@@ -142,7 +140,8 @@ basic.forever(function () {
     if(ludzik){
         if (checkUp() || checkDown() || checkLeft() || checkRight()) {
             ludzik.set(LedSpriteProperty.X, ludzikPosX) 
-            ludzik.set(LedSpriteProperty.Y, ludzikPosY)        
+            ludzik.set(LedSpriteProperty.Y, ludzikPosY)
+            basic.pause(1000)            
         }
     }
 })
@@ -161,7 +160,7 @@ let ludzikPosY = 0
 // stale do poruszania sie
 const posMin = 1
 const posMax = 3
-const czulosc = 200
+const czulosc = 500
 const speed = 500
 //---------------
 //###########################################
