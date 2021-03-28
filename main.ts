@@ -102,11 +102,20 @@ function ludzikMove() {
 //============================================
 // INTERAKCJE
 input.onButtonPressed(Button.A, function () {
-   // INFO
-   ludzikGoOverDoor()
+  if(!isStarted){
+    basic.clearScreen()
+    initRoomDoors()
+    initRoomSciany()
+    resetLudzikPosition()
+    initLudzik()
+    onEnterToRoom()
+    isStarted = true;
+  }
 })
 input.onButtonPressed(Button.B, function () {
-   ludzikGoOverDoor()
+    if(isStarted){
+      ludzikGoOverDoor()
+    }
 })
 function ludzikGoOverDoor() {    
     if (ludzik.isTouching(roomDoorSpirits[Door.G])) {
@@ -125,6 +134,7 @@ function resetLudzikPosition(){
 }
 
 basic.forever(function () {
+    if(!isStarted)return
     if (checkUp() || checkDown() || checkLeft() || checkRight()) {
         ludzikMove()        
     }
@@ -132,6 +142,7 @@ basic.forever(function () {
 //###########################################
 //============================================
 let isEnd = false;
+let isStarted = false;
 //============================================
 let ludzik: game.LedSprite = null
 let roomDoorSpiritsJasnosc:number = 5; 
@@ -157,8 +168,4 @@ dungeon.init()
 console.log(">>> Dungeon init OK")
 console.log(">>> Aktualny level: " + dungeon.currentLevel())
 console.log(">>> Aktualny room: " + dungeon.currentRoom())
-initRoomDoors()
-initRoomSciany()
-resetLudzikPosition()
-initLudzik()
-onEnterToRoom ()
+images.iconImage(IconNames.Heart).showImage(0)
