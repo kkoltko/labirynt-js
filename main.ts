@@ -70,7 +70,7 @@ function displayRoom (room: dungeon.Room) {
             }
             if(x==0 || x==4 || y==0 || y==4){
                 let sciana = game.createSprite(x, y)
-                sciana.set(LedSpriteProperty.Brightness, 100)
+                sciana.set(LedSpriteProperty.Brightness, 50)
             }
         } 
     }
@@ -89,21 +89,13 @@ function goOverDoor(d: Door) {
 }
 
 function initRoomDoor () {
-    let doorG = game.createSprite(2, 1)
-    doorG.set(LedSpriteProperty.Brightness, roomDoorSpiritsJasnosc)
-    roomDoorSpirits.set(Door.G, doorG)
-
-    let doorD = game.createSprite(2, 3)
-    doorD.set(LedSpriteProperty.Brightness, roomDoorSpiritsJasnosc)
-    roomDoorSpirits.set(Door.D, doorD)
-    
-    let doorP = game.createSprite(3, 2)
-    doorP.set(LedSpriteProperty.Brightness, roomDoorSpiritsJasnosc)
-    roomDoorSpirits.set(Door.L, doorP)
-    
-    let doorL = game.createSprite(1, 2)
-    doorL.set(LedSpriteProperty.Brightness, roomDoorSpiritsJasnosc)
-    roomDoorSpirits.set(Door.L, doorL)
+    roomDoorSpirits.set(Door.G, game.createSprite(2, 1))
+    roomDoorSpirits.set(Door.D, game.createSprite(2, 3))
+    roomDoorSpirits.set(Door.P, game.createSprite(3, 2))
+    roomDoorSpirits.set(Door.L, game.createSprite(1, 2))
+    for(let x=0;x<roomDoorSpirits.length;x++){
+        roomDoorSpirits[x].set(LedSpriteProperty.Brightness, 0)
+    }    
 }
 
 function onEnterToRoom (d: Door) {
@@ -169,7 +161,7 @@ let ludzikPosY = 0
 // stale do poruszania sie
 const posMin = 1
 const posMax = 3
-const czulosc = 500
+const czulosc = 200
 const speed = 500
 //---------------
 //###########################################
